@@ -1,4 +1,4 @@
-# Economic Scraping Skills：经济研究数据抓取 Skill
+# Economic Scraping Skills：经济研究数据抓取 Skills
 
 [简体中文](README.md) | [English](README_EN.md)
 

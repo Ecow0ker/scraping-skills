@@ -25,6 +25,7 @@ aqistudy-final-data*/
 Scrapling/
 
 # Local notebooks, temporary exports, and logs
+dist/
 *.log
 *.tmp
 *.bak

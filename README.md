@@ -47,7 +47,20 @@ Economic Scraping Skills 是一个用于经济研究网页数据抓取和整理�
 
 ## 安装
 
-### 方法一：通过 Git 克隆安装（推荐）
+### 方法一：让 Codex 帮你安装（推荐）
+
+直接把下面这段提示词发给 Codex：
+
+```text
+请从这个仓库安装 Codex skill：
+https://github.com/Ecow0ker/economic-scraping-skills.git
+
+请把仓库中的 economic-scraping-skills/ 完整技能文件夹安装到我的 ~/.codex/skills/ 目录中，包括 agents/、references/ 和 scripts/。
+不要只复制 SKILL.md。
+如果已存在旧版本，请先删除 ~/.codex/skills/economic-scraping-skills 再复制。
+```
+
+### 方法二：通过 Git 克隆安装
 
 该方法会把完整 Skill 文件夹复制到 Codex 当前使用的全局 skills 目录：
 
@@ -57,19 +70,6 @@ mkdir -p ~/.codex/skills
 git clone https://github.com/Ecow0ker/economic-scraping-skills.git /tmp/economic-scraping-skills
 rm -rf ~/.codex/skills/economic-scraping-skills
 cp -R /tmp/economic-scraping-skills/economic-scraping-skills ~/.codex/skills/
-```
-
-### 方法二：让 Codex 帮你安装
-
-也可以直接把下面这段提示词发给 Codex：
-
-```text
-请从这个仓库安装 Codex skill：
-https://github.com/Ecow0ker/economic-scraping-skills.git
-
-请把仓库中的 economic-scraping-skills/ 完整技能文件夹安装到我的 ~/.codex/skills/ 目录中，包括 agents/、references/ 和 scripts/。
-不要只复制 SKILL.md。
-如果已存在旧版本，请先删除 ~/.codex/skills/economic-scraping-skills 再复制。
 ```
 
 ### 方法三：本地手动安装

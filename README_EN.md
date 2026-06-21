@@ -47,7 +47,20 @@ The goal is not to scrape as many pages as possible. The goal is to build stable
 
 ## Installation
 
-### Method 1: Install with Git (recommended)
+### Method 1: Ask Codex to Install It (recommended)
+
+Send this prompt directly to Codex:
+
+```text
+Please install this Codex skill from the repository:
+https://github.com/Ecow0ker/economic-scraping-skills.git
+
+Please copy the complete economic-scraping-skills/ skill folder from the repository into my ~/.codex/skills/ directory, including agents/, references/, and scripts/.
+Do not copy only SKILL.md.
+If an older version exists, remove ~/.codex/skills/economic-scraping-skills before copying.
+```
+
+### Method 2: Install with Git
 
 This method copies the complete Skill folder into the global skills directory currently used by Codex:
 
@@ -57,19 +70,6 @@ mkdir -p ~/.codex/skills
 git clone https://github.com/Ecow0ker/economic-scraping-skills.git /tmp/economic-scraping-skills
 rm -rf ~/.codex/skills/economic-scraping-skills
 cp -R /tmp/economic-scraping-skills/economic-scraping-skills ~/.codex/skills/
-```
-
-### Method 2: Ask Codex to Install It
-
-You can also send this prompt to Codex:
-
-```text
-Please install this Codex skill from the repository:
-https://github.com/Ecow0ker/economic-scraping-skills.git
-
-Please copy the complete economic-scraping-skills/ skill folder from the repository into my ~/.codex/skills/ directory, including agents/, references/, and scripts/.
-Do not copy only SKILL.md.
-If an older version exists, remove ~/.codex/skills/economic-scraping-skills before copying.
 ```
 
 ### Method 3: Manual Local Installation

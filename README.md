@@ -14,7 +14,7 @@ Economic Scraping Skills 是一个用于经济研究网页数据抓取和整理�
 
 本项目适用于：
 
-- 抓取 aqistudy 城市-日期空气质量数据。
+- 抓取城市-日期空气质量历史数据。
 - 整理百度指数等登录后页面中的城市-日期搜索指数。
 - 抓取房产挂牌、招聘岗位、商品价格、公告、企业页面和新闻索引。
 - 将网页内容整理成城市-日期、企业-日期、岗位、房产、价格、公告等 observation-level 表格。
@@ -107,7 +107,7 @@ $economic-scraping-skills
 直接调用 Skill 即可。中文提问会默认生成中文目录、中文字段名和中文审查报告；英文提问会默认生成英文目录、英文字段名和英文质量报告。
 
 ```text
-$economic-scraping-skills 请爬取 aqistudy 热门城市这个月的空气质量，网址为XXX。
+$economic-scraping-skills 请爬取某空气质量历史数据网站中热门城市这个月的空气质量，网址为XXX。
 ```
 
 ```text
@@ -138,19 +138,19 @@ Skill 不会读取或保存密码、cookie、local storage、浏览器缓存或�
 
 ## 使用场景示例
 
-### 场景 1：aqistudy 空气质量
+### 场景 1：城市空气质量
 
 **输入：**
 
 ```text
-$economic-scraping-skills 请爬取 aqistudy 热门城市这个月的空气质量，网址为XXX。
+$economic-scraping-skills 请爬取某空气质量历史数据网站中热门城市这个月的空气质量，网址为XXX。
 ```
 
 **输出方向：**
 
 ```text
-aqistudy数据抓取/
-aqistudy最终数据/
+空气质量数据抓取/
+空气质量最终数据/
 ```
 
 最终数据包含城市、月份、日期、AQI、质量等级、PM2.5、PM10、SO2、NO2、CO、O3 等字段，并输出 CSV、JSONL 和 Stata DTA。
@@ -189,37 +189,17 @@ economic-scraping-skills/
 ├── agents/
 │   └── openai.yaml
 ├── references/
-│   ├── advanced-scrapling.md
-│   ├── aqistudy-air-quality.md
-│   ├── aqistudy-rules-fragment.md
-│   ├── engine-selection.md
-│   ├── ethics-and-compliance.md
-│   ├── login-and-human-interaction.md
-│   ├── quality-checks.md
-│   ├── research-schemas.md
-│   └── source-types.md
+│   └── ...
 └── scripts/
-    ├── aqistudy_extract.py
-    ├── batch_url_extract.py
-    ├── listing_detail_spider.py
-    ├── quality_report.py
-    ├── save_raw_response.py
-    ├── setup_environment.py
-    └── single_page_extract.py
+    └── ...
 ```
 
 说明：
 
 - `SKILL.md`：Skill 主入口，定义触发场景、默认工作流和输出约定。
-- `source-types.md`：判断网页类型，例如静态页、动态页、列表页、API、登录页等。
-- `engine-selection.md`：选择 Scrapling、Playwright、本机 Chrome 或其他方式的规则。
-- `login-and-human-interaction.md`：登录、验证码、二维码、MFA 和人工确认场景的处理规则。
-- `research-schemas.md`：经济研究常见数据结构和字段设计。
-- `quality-checks.md`：记录数、缺失值、重复值、原始文件存在性等审查规则。
-- `ethics-and-compliance.md`：授权访问、隐私、验证码和合规边界。
-- `advanced-scrapling.md`：复杂页面和 Scrapling 进阶用法。
-- `aqistudy_extract.py`：aqistudy 空气质量专用抽取脚本。
-- `quality_report.py`：生成数据审查报告的辅助脚本。
+- `agents/`：Codex 界面显示和默认提示词配置。
+- `references/`：网页类型判断、采集方式选择、登录验证、人机交互、数据结构、质量检查和合规边界等规则。
+- `scripts/`：可复用的数据抽取、原始证据保存、列表详情页抓取和质量报告脚本。
 
 注意：`economic-scraping-skills/references/` 是 Skill 内部规则文档目录，不是输出数据目录。
 
@@ -245,11 +225,11 @@ economic-scraping-skills/
 └── CSV / JSONL / DTA / XLSX
 ```
 
-对于 aqistudy，目录名固定为：
+对于空气质量历史数据，目录名通常为：
 
 ```text
-aqistudy数据抓取/
-aqistudy最终数据/
+空气质量数据抓取/
+空气质量最终数据/
 ```
 
 第一次运行没有版本后缀；第二次运行使用 `V2`，第三次使用 `V3`。

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare a Python environment for economic scraping projects."""
+"""Prepare a Python environment for research data scraping projects."""
 
 from __future__ import annotations
 

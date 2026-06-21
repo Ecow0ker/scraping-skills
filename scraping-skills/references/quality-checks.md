@@ -12,7 +12,7 @@ Run quality checks after every collection.
 - raw file existence
 - extraction error count
 
-## Economic Data Checks
+## Research Data Checks
 
 - Price fields: parseability, negative values, extreme outliers, currency/unit changes.
 - Date fields: parseability, future dates, unexpected old dates.

@@ -1,13 +1,13 @@
 ---
-name: economic-scraping-skills
-description: Build reproducible public web datasets for economic research using Python and Scrapling. Use when collecting or structuring web data for research, including prices, jobs, housing, procurement, announcements, air quality, firm pages, news indexes, panels, batch URL extraction, raw evidence archiving, quality checks, or human-assisted Chrome login/verification workflows.
+name: scraping-skills
+description: Build reproducible public web datasets for research data collection and organization using Python and Scrapling. Use when collecting or structuring web data for research, including prices, jobs, housing, procurement, announcements, air quality, organization pages, news indexes, panels, batch URL extraction, raw evidence archiving, quality checks, or human-assisted Chrome login/verification workflows.
 ---
 
-# Economic Scraping Skills
+# Scraping Skills
 
 ## Purpose
 
-Use this skill to turn public web pages into reproducible economic research datasets. The CSV is the analysis dataset, not a page dump: rows should be meaningful observations such as city-day air-quality records, job postings, prices, firms, announcements, or housing listings. Keep the user-facing workflow simple: ask about the research question, source URLs, desired fields, collection frequency, and output format; hide Scrapling and browser details unless the task requires them.
+Use this skill to turn public web pages into reproducible research datasets. The CSV is the analysis dataset, not a page dump: rows should be meaningful observations such as city-day air-quality records, job postings, prices, organizations, announcements, or housing listings. Keep the user-facing workflow simple: ask about the research question, source URLs, desired fields, collection frequency, and output format; hide Scrapling and browser details unless the task requires them.
 
 Python is the implementation language. Keep Scrapling as the default fetch/archive engine, installed with `pip install "scrapling[all]"` when a project needs a full environment. Scrapling does not define the final dataset: use it to fetch pages, discover links, handle dynamic pages, and preserve evidence; use source-specific extractors or APIs to create observation-level CSV files.
 

@@ -1,37 +1,37 @@
-# Economic Scraping Skills：经济研究数据抓取 Skills
+# Scraping Skills：研究类数据抓取与整理 Skills
 
 [简体中文](README.md) | [English](README_EN.md)
 
 > **声明：**
-> - 本项目面向经济研究数据整理场景，重点不是绕过网站限制，而是把公开或授权访问的数据源整理成可复核、可分析、可导出的研究数据集。
+> - 本项目面向研究类数据整理场景，重点不是绕过网站限制，而是把公开或授权访问的数据源整理成可复核、可分析、可导出的研究数据集。
 > - 需要登录、验证码、二维码、MFA 或人工确认的网页，应由用户在本机浏览器中完成合法验证后再继续。
 
 ---
 
 ## 项目简介
 
-Economic Scraping Skills 是一个用于经济研究网页数据抓取和整理的 Codex Skill。它可以帮助研究人员把网页、接口、下载文件或登录后可见页面整理成真正可用的研究数据，而不是只保存网页正文、标题或截图。
+Scraping Skills 是一个用于研究类网页数据抓取和整理的 Codex Skill。它可以帮助研究人员把网页、接口、下载文件或登录后可见页面整理成真正可用的研究数据，而不是只保存网页正文、标题或截图。
 
 本项目适用于：
 
 - 抓取城市-日期空气质量历史数据。
 - 整理百度指数等登录后页面中的城市-日期搜索指数。
-- 抓取房产挂牌、招聘岗位、商品价格、公告、企业页面和新闻索引。
-- 将网页内容整理成城市-日期、企业-日期、岗位、房产、价格、公告等 observation-level 表格。
-- 输出 CSV、JSONL、Excel、Stata DTA 等经济研究常用格式。
+- 抓取房产挂牌、招聘岗位、商品价格、公告、机构页面和新闻索引。
+- 将网页内容整理成城市-日期、机构-日期、岗位、房产、价格、公告等 observation-level 表格。
+- 输出 CSV、JSONL、Excel、Stata DTA 等研究常用格式。
 - 为重复性数据收集任务生成可复用的运行脚本和审查报告。
 
 ---
 
 ## 设计思路
 
-这个 Skill 的核心判断是：经济研究需要的是数据，而不是网页。
+这个 Skill 的核心判断是：研究类数据整理需要的是数据，而不是网页。
 
 因此，本项目把“爬虫”拆成三层：
 
 1. **研究对象识别**
 
-   先判断最终数据的一行应该是什么：城市-日期、企业-日期、岗位、房产挂牌、价格观测、公告、新闻条目，还是搜索指数观测。
+   先判断最终数据的一行应该是什么：城市-日期、机构-日期、岗位、房产挂牌、价格观测、公告、新闻条目，还是搜索指数观测。
 
 2. **数据源路径选择**
 
@@ -53,11 +53,11 @@ Economic Scraping Skills 是一个用于经济研究网页数据抓取和整理�
 
 ```text
 请从这个仓库安装 Codex skill：
-https://github.com/Ecow0ker/economic-scraping-skills.git
+https://github.com/Ecow0ker/scraping-skills.git
 
-请把仓库中的 economic-scraping-skills/ 完整技能文件夹安装到我的 ~/.codex/skills/ 目录中，包括 agents/、references/ 和 scripts/。
+请把仓库中的 scraping-skills/ 完整技能文件夹安装到我的 ~/.codex/skills/ 目录中，包括 agents/、references/ 和 scripts/。
 不要只复制 SKILL.md。
-如果已存在旧版本，请先删除 ~/.codex/skills/economic-scraping-skills 再复制。
+如果已存在旧版本，请先删除 ~/.codex/skills/scraping-skills 再复制。
 ```
 
 ### 方法二：通过 Git 克隆安装
@@ -65,11 +65,11 @@ https://github.com/Ecow0ker/economic-scraping-skills.git
 该方法会把完整 Skill 文件夹复制到 Codex 当前使用的全局 skills 目录：
 
 ```bash
-rm -rf /tmp/economic-scraping-skills
+rm -rf /tmp/scraping-skills
 mkdir -p ~/.codex/skills
-git clone https://github.com/Ecow0ker/economic-scraping-skills.git /tmp/economic-scraping-skills
-rm -rf ~/.codex/skills/economic-scraping-skills
-cp -R /tmp/economic-scraping-skills/economic-scraping-skills ~/.codex/skills/
+git clone https://github.com/Ecow0ker/scraping-skills.git /tmp/scraping-skills
+rm -rf ~/.codex/skills/scraping-skills
+cp -R /tmp/scraping-skills/scraping-skills ~/.codex/skills/
 ```
 
 ### 方法三：本地手动安装
@@ -77,15 +77,15 @@ cp -R /tmp/economic-scraping-skills/economic-scraping-skills ~/.codex/skills/
 当前 Skill 已生成在本项目目录中：
 
 ```text
-economic-scraping-skills/
+scraping-skills/
 ```
 
 可以复制到 Codex skills 目录：
 
 ```bash
 mkdir -p ~/.codex/skills
-rm -rf ~/.codex/skills/economic-scraping-skills
-cp -R economic-scraping-skills ~/.codex/skills/
+rm -rf ~/.codex/skills/scraping-skills
+cp -R scraping-skills ~/.codex/skills/
 ```
 
 ### 验证安装
@@ -93,7 +93,7 @@ cp -R economic-scraping-skills ~/.codex/skills/
 重启 Codex 或重新加载 skills 后，在对话中输入：
 
 ```text
-$economic-scraping-skills
+$scraping-skills
 ```
 
 如果安装成功，该 Skill 将被激活。
@@ -107,19 +107,19 @@ $economic-scraping-skills
 直接调用 Skill 即可。中文提问会默认生成中文目录、中文字段名和中文审查报告；英文提问会默认生成英文目录、英文字段名和英文质量报告。
 
 ```text
-$economic-scraping-skills 请爬取某空气质量历史数据网站中热门城市这个月的空气质量，网址为XXX。
+$scraping-skills 请爬取某空气质量历史数据网站中热门城市这个月的空气质量，网址为XXX。
 ```
 
 ```text
-$economic-scraping-skills 请获取山东每个城市近30天的百度搜索指数，网址为XXX。
+$scraping-skills 请获取山东每个城市近30天的百度搜索指数，网址为XXX。
 ```
 
 ```text
-$economic-scraping-skills 请抓取北京前6页的房产挂牌数据，网址为XXX。
+$scraping-skills 请抓取北京前6页的房产挂牌数据，网址为XXX。
 ```
 
 ```text
-$economic-scraping-skills Collect job postings from this website and export CSV and Stata DTA, URL is XXX.
+$scraping-skills Collect job postings from this website and export CSV and Stata DTA, URL is XXX.
 ```
 
 ### 需要登录或验证的网页
@@ -143,7 +143,7 @@ Skill 不会读取或保存密码、cookie、local storage、浏览器缓存或�
 **输入：**
 
 ```text
-$economic-scraping-skills 请爬取某空气质量历史数据网站中热门城市这个月的空气质量，网址为XXX。
+$scraping-skills 请爬取某空气质量历史数据网站中热门城市这个月的空气质量，网址为XXX。
 ```
 
 **输出方向：**
@@ -160,7 +160,7 @@ $economic-scraping-skills 请爬取某空气质量历史数据网站中热门城
 **输入：**
 
 ```text
-$economic-scraping-skills 请获取山东每个城市近30天的百度搜索指数，网址为XXX。
+$scraping-skills 请获取山东每个城市近30天的百度搜索指数，网址为XXX。
 ```
 
 **处理方式：**
@@ -172,7 +172,7 @@ $economic-scraping-skills 请获取山东每个城市近30天的百度搜索指�
 **输入：**
 
 ```text
-$economic-scraping-skills 请抓取这个网站前5页的招聘岗位数据，网址为XXX。
+$scraping-skills 请抓取这个网站前5页的招聘岗位数据，网址为XXX。
 ```
 
 **输出方向：**
@@ -184,7 +184,7 @@ $economic-scraping-skills 请抓取这个网站前5页的招聘岗位数据，�
 ## 文件说明
 
 ```text
-economic-scraping-skills/
+scraping-skills/
 ├── SKILL.md
 ├── agents/
 │   └── openai.yaml
@@ -201,7 +201,7 @@ economic-scraping-skills/
 - `references/`：网页类型判断、采集方式选择、登录验证、人机交互、数据结构、质量检查和合规边界等规则。
 - `scripts/`：可复用的数据抽取、原始证据保存、列表详情页抓取和质量报告脚本。
 
-注意：`economic-scraping-skills/references/` 是 Skill 内部规则文档目录，不是输出数据目录。
+注意：`scraping-skills/references/` 是 Skill 内部规则文档目录，不是输出数据目录。
 
 ---
 

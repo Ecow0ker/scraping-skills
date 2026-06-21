@@ -162,7 +162,7 @@ def extract_one(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Extract one page for an economic research dataset.")
+    parser = argparse.ArgumentParser(description="Extract one page for a research dataset.")
     parser.add_argument("url")
     parser.add_argument("--project-dir", default="research_scrape_output")
     parser.add_argument("--field", action="append", help="Field mapping in name=css_selector format")

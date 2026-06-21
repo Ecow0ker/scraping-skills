@@ -44,4 +44,4 @@ The visible command in `运行方式.md` should be:
 python 代码文件/一键运行.py
 ```
 
-Keep command-line parameters inside the runner script so economic researchers can rerun the same collection without learning crawler options.
+Keep command-line parameters inside the runner script so researchers can rerun the same collection without learning crawler options.

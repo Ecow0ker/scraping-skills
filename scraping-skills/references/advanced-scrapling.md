@@ -13,7 +13,7 @@ pip install "scrapling[all]"
 scrapling install --force
 ```
 
-Use `scrapling[all]` by default for economic research because sources often need JavaScript rendering, browser sessions, or batch crawling.
+Use `scrapling[all]` by default for research data projects because sources often need JavaScript rendering, browser sessions, or batch crawling.
 
 Read `engine-selection.md` before replacing Scrapling with direct Playwright or Codex Browser/Chrome.
 

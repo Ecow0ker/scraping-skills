@@ -1,23 +1,23 @@
-# Economic Scraping Skills: Web Data Collection Skill for Economic Research
+# Scraping Skills: Research Data Collection and Structuring Skill
 
 [简体中文](README.md) | [English](README_EN.md)
 
 > **Note:**
-> - This project is designed for economic research data collection. Its goal is not to bypass website restrictions, but to turn public or authorized data sources into reproducible, analysis-ready datasets.
+> - This project is designed for research data collection and organization. Its goal is not to bypass website restrictions, but to turn public or authorized data sources into reproducible, analysis-ready datasets.
 > - For pages that require login, captcha, QR code, MFA, or manual confirmation, the user should complete legitimate verification in a local browser before collection continues.
 
 ---
 
 ## Overview
 
-Economic Scraping Skills is a Codex Skill for collecting and structuring web data for economic research. It helps researchers convert web pages, APIs, downloads, and authenticated pages into usable research datasets instead of saving only page text, titles, or screenshots.
+Scraping Skills is a Codex Skill for collecting and structuring web data for research. It helps researchers convert web pages, APIs, downloads, and authenticated pages into usable research datasets instead of saving only page text, titles, or screenshots.
 
 This project is useful for:
 
 - Collecting city-date historical air quality data.
 - Structuring city-date search index data from authenticated Baidu Index pages.
-- Collecting housing listings, job postings, product prices, announcements, firm pages, and news indexes.
-- Producing observation-level tables such as city-date, firm-date, job-posting, housing-listing, price, and announcement records.
+- Collecting housing listings, job postings, product prices, announcements, organization pages, and news indexes.
+- Producing observation-level tables such as city-date, organization-date, job-posting, housing-listing, price, and announcement records.
 - Exporting CSV, JSONL, Excel, and Stata DTA files.
 - Generating reusable run scripts and review reports for repeated data collection tasks.
 
@@ -25,13 +25,13 @@ This project is useful for:
 
 ## Design Rationale
 
-The core idea behind this Skill is that economic research needs data, not web pages.
+The core idea behind this Skill is that research data work needs data, not web pages.
 
 Therefore, this project separates web scraping into three connected tasks:
 
 1. **Identify the research observation**
 
-   First decide what one row of the final dataset should represent: city-date, firm-date, job posting, housing listing, price observation, announcement, news item, or search index observation.
+   First decide what one row of the final dataset should represent: city-date, organization-date, job posting, housing listing, price observation, announcement, news item, or search index observation.
 
 2. **Choose the data access path**
 
@@ -53,11 +53,11 @@ Send this prompt directly to Codex:
 
 ```text
 Please install this Codex skill from the repository:
-https://github.com/Ecow0ker/economic-scraping-skills.git
+https://github.com/Ecow0ker/scraping-skills.git
 
-Please copy the complete economic-scraping-skills/ skill folder from the repository into my ~/.codex/skills/ directory, including agents/, references/, and scripts/.
+Please copy the complete scraping-skills/ skill folder from the repository into my ~/.codex/skills/ directory, including agents/, references/, and scripts/.
 Do not copy only SKILL.md.
-If an older version exists, remove ~/.codex/skills/economic-scraping-skills before copying.
+If an older version exists, remove ~/.codex/skills/scraping-skills before copying.
 ```
 
 ### Method 2: Install with Git
@@ -65,11 +65,11 @@ If an older version exists, remove ~/.codex/skills/economic-scraping-skills befo
 This method copies the complete Skill folder into the global skills directory currently used by Codex:
 
 ```bash
-rm -rf /tmp/economic-scraping-skills
+rm -rf /tmp/scraping-skills
 mkdir -p ~/.codex/skills
-git clone https://github.com/Ecow0ker/economic-scraping-skills.git /tmp/economic-scraping-skills
-rm -rf ~/.codex/skills/economic-scraping-skills
-cp -R /tmp/economic-scraping-skills/economic-scraping-skills ~/.codex/skills/
+git clone https://github.com/Ecow0ker/scraping-skills.git /tmp/scraping-skills
+rm -rf ~/.codex/skills/scraping-skills
+cp -R /tmp/scraping-skills/scraping-skills ~/.codex/skills/
 ```
 
 ### Method 3: Manual Local Installation
@@ -77,15 +77,15 @@ cp -R /tmp/economic-scraping-skills/economic-scraping-skills ~/.codex/skills/
 The Skill folder in this project is:
 
 ```text
-economic-scraping-skills/
+scraping-skills/
 ```
 
 Copy it to your Codex skills directory:
 
 ```bash
 mkdir -p ~/.codex/skills
-rm -rf ~/.codex/skills/economic-scraping-skills
-cp -R economic-scraping-skills ~/.codex/skills/
+rm -rf ~/.codex/skills/scraping-skills
+cp -R scraping-skills ~/.codex/skills/
 ```
 
 ### Verify Installation
@@ -93,7 +93,7 @@ cp -R economic-scraping-skills ~/.codex/skills/
 Restart Codex or reload skills, then type:
 
 ```text
-$economic-scraping-skills
+$scraping-skills
 ```
 
 If installation succeeds, the Skill should activate.
@@ -107,19 +107,19 @@ If installation succeeds, the Skill should activate.
 Call the Skill directly. Chinese prompts default to Chinese folders, Chinese column names, and a Chinese review report. English prompts default to English folders, English column names, and an English quality report.
 
 ```text
-$economic-scraping-skills Collect this month's air quality data for popular cities from an air quality history website, URL is XXX.
+$scraping-skills Collect this month's air quality data for popular cities from an air quality history website, URL is XXX.
 ```
 
 ```text
-$economic-scraping-skills Collect Baidu Index data for every city in Shandong over the past 30 days, URL is XXX.
+$scraping-skills Collect Baidu Index data for every city in Shandong over the past 30 days, URL is XXX.
 ```
 
 ```text
-$economic-scraping-skills Collect housing listing data from the first 6 pages for Beijing, URL is XXX.
+$scraping-skills Collect housing listing data from the first 6 pages for Beijing, URL is XXX.
 ```
 
 ```text
-$economic-scraping-skills Collect job postings from this website and export CSV and Stata DTA, URL is XXX.
+$scraping-skills Collect job postings from this website and export CSV and Stata DTA, URL is XXX.
 ```
 
 ### Pages That Require Login Or Verification
@@ -138,12 +138,12 @@ The Skill does not read or save passwords, cookies, local storage, browser cache
 
 ## Examples
 
-### Example 1: Aqistudy Air Quality
+### Example 1: Historical Air Quality
 
 **Input:**
 
 ```text
-$economic-scraping-skills Collect this month's air quality data for popular cities from an air quality history website, URL is XXX.
+$scraping-skills Collect this month's air quality data for popular cities from an air quality history website, URL is XXX.
 ```
 
 **Output direction:**
@@ -160,7 +160,7 @@ The final dataset includes city, month, date, AQI, quality level, PM2.5, PM10, S
 **Input:**
 
 ```text
-$economic-scraping-skills Collect Baidu Index data for every city in Shandong over the past 30 days, URL is XXX.
+$scraping-skills Collect Baidu Index data for every city in Shandong over the past 30 days, URL is XXX.
 ```
 
 **How it works:**
@@ -172,7 +172,7 @@ If Baidu Index requires login, the Skill opens local Chrome, waits for the user 
 **Input:**
 
 ```text
-$economic-scraping-skills Collect job postings from the first 5 pages of this website, URL is XXX.
+$scraping-skills Collect job postings from the first 5 pages of this website, URL is XXX.
 ```
 
 **Output direction:**
@@ -184,7 +184,7 @@ The final dataset should include job title, company, city, salary, experience re
 ## Files
 
 ```text
-economic-scraping-skills/
+scraping-skills/
 ├── SKILL.md
 ├── agents/
 │   └── openai.yaml
@@ -201,7 +201,7 @@ File notes:
 - `references/`: Rules for source classification, engine selection, login and verification workflows, data schemas, quality checks, and compliance boundaries.
 - `scripts/`: Reusable scripts for extraction, raw evidence archiving, listing-detail crawling, and quality reporting.
 
-Note: `economic-scraping-skills/references/` contains internal Skill rule files. It is not an output data folder.
+Note: `scraping-skills/references/` contains internal Skill rule files. It is not an output data folder.
 
 ---
 

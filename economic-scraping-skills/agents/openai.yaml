@@ -1,0 +1,4 @@
+interface:
+  display_name: "Economic Scraping Skills"
+  short_description: "Research web data collection"
+  default_prompt: "Use $economic-scraping-skills to collect public web data for an economic research dataset with raw evidence, structured outputs, quality checks, and Chrome-assisted login or verification when needed."

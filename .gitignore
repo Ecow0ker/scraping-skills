@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local crawl outputs and test artifacts
+test-runs/
+plan.md
+百度指数山东数据抓取/
+百度指数山东最终数据/
+aqistudy数据抓取*/
+aqistudy最终数据*/
+aqistudy-data*/
+aqistudy-final-data*/
+
+# Third-party source checkout used during development
+Scrapling/
+
+# Local notebooks, temporary exports, and logs
+*.log
+*.tmp
+*.bak
+*.sqlite
+*.duckdb
+*.parquet
+
+# Large research data exports should be attached separately, not committed by default
+*.dta
+*.xlsx
+*.xls

@@ -18,7 +18,7 @@ Scraping Skills 是一个用于研究类网页数据抓取和整理的 Codex Ski
 - 整理百度指数等登录后页面中的城市-日期搜索指数。
 - 抓取房产挂牌、招聘岗位、商品价格、公告、机构页面和新闻索引。
 - 将网页内容整理成城市-日期、机构-日期、岗位、房产、价格、公告等 observation-level 表格。
-- 输出 CSV、JSONL、Excel、Stata DTA 等研究常用格式。
+- 输出 CSV、JSONL、Excel、Stata DTA、Parquet、DuckDB 等研究常用格式。
 - 为重复性数据收集任务生成可复用的运行脚本和审查报告。
 
 ---
@@ -222,7 +222,7 @@ scraping-skills/
 ├── 日志文件/
 └── 代码文件/
 最终数据目录/
-└── CSV / JSONL / DTA / XLSX
+└── CSV / JSONL / DTA / XLSX / Parquet / DuckDB
 ```
 
 对于空气质量历史数据，目录名通常为：

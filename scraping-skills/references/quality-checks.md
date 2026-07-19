@@ -14,11 +14,20 @@ Run quality checks after every collection.
 
 ## Research Data Checks
 
+- Row unit: confirm that one row represents the intended observation, not a whole page dump.
 - Price fields: parseability, negative values, extreme outliers, currency/unit changes.
 - Date fields: parseability, future dates, unexpected old dates.
 - Region fields: missing city/province, inconsistent names.
 - Panel fields: duplicate `entity_id` and `observed_at`, missing waves, sudden coverage drops.
 - Text fields: empty titles, boilerplate-only text, captcha or access-denied text.
+
+## Delivery Checks
+
+- Final data folder exists separately from the crawl/evidence folder.
+- Final CSV/JSONL/DTA/XLSX/Parquet/DuckDB files use the user's language for researcher-facing columns.
+- DTA outputs include a sidecar label JSON when column names must be converted to Stata-safe ASCII.
+- Raw files, metadata, logs, and the review report are present in the crawl/evidence folder.
+- Reusable code folders include a no-parameter run instruction when the task is meant to be rerun.
 
 ## Report Style
 

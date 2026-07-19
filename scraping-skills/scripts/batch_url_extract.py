@@ -38,6 +38,7 @@ def main() -> int:
     parser.add_argument("input_csv")
     parser.add_argument("--url-column", default="url")
     parser.add_argument("--project-dir", default="research_scrape_output")
+    parser.add_argument("--language", choices=["zh", "en"], default="en")
     parser.add_argument("--field", action="append", help="Field mapping in name=css_selector format")
     parser.add_argument("--mode", choices=["auto", "static", "dynamic", "stealth"], default="auto")
     parser.add_argument("--timeout", type=int, default=30)
@@ -53,7 +54,7 @@ def main() -> int:
     failures = []
     for index, url in enumerate(urls, start=1):
         try:
-            records.append(extract_one(url, args.project_dir, fields, mode=args.mode, timeout=args.timeout))
+            records.append(extract_one(url, args.project_dir, fields, mode=args.mode, timeout=args.timeout, language=args.language))
         except Exception as exc:
             failures.append({"source_url": url, "error": str(exc)})
         if index < len(urls) and args.download_delay > 0:
@@ -61,7 +62,7 @@ def main() -> int:
 
     if failures:
         records.extend(failures)
-    outputs = export_records(records, args.project_dir, args.stem, parse_formats(args.formats))
+    outputs = export_records(records, args.project_dir, args.stem, parse_formats(args.formats), language=args.language)
     print(json.dumps({"requested": len(urls), "records": len(records), "failures": len(failures), "outputs": outputs}, ensure_ascii=False, indent=2))
     return 0 if not failures else 2
 

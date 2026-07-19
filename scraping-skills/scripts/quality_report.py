@@ -60,7 +60,7 @@ def detect_language(records: list[dict[str, Any]], source_path: Path, requested:
     fields = {key for record in records for key in record.keys()}
     if fields.intersection(ZH_HINT_FIELDS):
         return "zh"
-    if any(part in {"报告文件", "数据文件", "处理后数据", "aqistudy最终数据"} for part in source_path.parts):
+    if any(part in {"报告文件", "数据文件", "处理后数据"} or "最终数据" in part for part in source_path.parts):
         return "zh"
     return "en"
 
@@ -79,6 +79,8 @@ def default_report_path(source_path: Path, language: str) -> Path:
         if parent.name in processed_names and len(parent.parents) >= 2:
             project_root = parent.parents[1]
             return project_root / report_dir_name / report_file_name(language)
+    if "最终数据" in source_path.parent.name or source_path.parent.name.endswith("final-data"):
+        return source_path.parent / report_file_name(language)
     return Path(report_file_name(language))
 
 

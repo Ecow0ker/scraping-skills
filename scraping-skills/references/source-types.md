@@ -9,6 +9,7 @@ Read `engine-selection.md` when the source is dynamic, interactive, authenticate
 - **Single page**: One URL contains the needed content. Use `single_page_extract.py`.
 - **Known air-quality history source**: For aqistudy city air-quality history, use `aqistudy_extract.py` so the CSV contains city-date observations instead of page text. Pass `--language zh` for Chinese user requests and `--language en` for English user requests. Prefer `--output-parent .` from the workspace root and let the script auto-version sibling crawl/final-data folders there.
 - **Batch URLs**: The user already has a CSV of URLs. Use `batch_url_extract.py`.
+- **Downloaded file or local table**: If the user already has CSV, Excel, JSONL, DTA, or another structured file, treat that file as a data source. Clean, reshape, audit, and export the dataset instead of scraping the website again.
 - **Listing plus detail pages**: A listing page links to many detail pages, such as jobs, housing, products, procurement notices, or announcements. Use `listing_detail_spider.py`.
 - **Search result pages**: Treat as listing pages. Record the query, filters, page number, and observed time as metadata.
 - **Dynamic page**: Important content appears only after JavaScript runs. Start with ordinary fetching; if data are empty or incomplete, look for the page's data endpoint before upgrading to browser fetching.
@@ -32,3 +33,5 @@ Keep the final user explanation in research terms, not scraper internals.
 ## Output Parent
 
 Default to the current workspace/project root as the output parent. Put the crawl/evidence folder and final-data folder directly under that root. Do not add a `test-runs/` or task-named wrapper folder unless the user explicitly requests an isolated test workspace.
+
+For generic sources, derive folder names from the research object, not the engine. Use sibling folders such as `招聘数据抓取/` plus `招聘最终数据/`, or `job-postings-data/` plus `job-postings-final-data/`. First runs have no suffix; repeated runs add `V2`, `V3` or `-v2`, `-v3`.

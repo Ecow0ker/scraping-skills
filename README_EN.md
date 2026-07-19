@@ -18,7 +18,7 @@ This project is useful for:
 - Structuring city-date search index data from authenticated Baidu Index pages.
 - Collecting housing listings, job postings, product prices, announcements, organization pages, and news indexes.
 - Producing observation-level tables such as city-date, organization-date, job-posting, housing-listing, price, and announcement records.
-- Exporting CSV, JSONL, Excel, and Stata DTA files.
+- Exporting CSV, JSONL, Excel, Stata DTA, Parquet, and DuckDB files.
 - Generating reusable run scripts and review reports for repeated data collection tasks.
 
 ---
@@ -222,7 +222,7 @@ data-crawl-folder/
 ├── logs/
 └── code/
 final-data-folder/
-└── CSV / JSONL / DTA / XLSX
+└── CSV / JSONL / DTA / XLSX / Parquet / DuckDB
 ```
 
 For historical air quality data, folder names usually are:

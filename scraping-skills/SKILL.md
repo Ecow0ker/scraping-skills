@@ -22,10 +22,10 @@ Python is the implementation language. Keep Scrapling as the default fetch/archi
 2. Classify the source. Read `references/source-types.md` if the source shape is unclear.
 3. Choose the lightest collection engine. Read `references/engine-selection.md` when the page is dynamic, interactive, authenticated, blocked, or unclear.
 4. Choose the simplest script:
-   - `scripts/aqistudy_extract.py` for China city-day air-quality history from aqistudy
    - `scripts/single_page_extract.py` for one page
    - `scripts/batch_url_extract.py` for a CSV of URLs
    - `scripts/listing_detail_spider.py` for listing pages with detail links
+   - `scripts/aqistudy_extract.py` only for the dedicated China city-day air-quality history source described in `references/aqistudy-air-quality.md`
    - `scripts/quality_report.py` after data is collected
 5. Save raw evidence and structured data separately. Every record must keep source URL, final URL, fetch time, status code, content hash, and raw file path.
 6. Generate a review report before presenting results. Chinese requests use `审查报告.md` with Chinese body text; English requests use `quality_report.md`.
@@ -51,9 +51,10 @@ Python is the implementation language. Keep Scrapling as the default fetch/archi
 - When the user specifies fields or columns, collect those fields and keep required provenance columns after them.
 - Match output language to the user's language. Chinese requests should use Chinese folder names and Chinese column names; English requests should use English folder names and English column names.
 - By default, use the current workspace/project root as the output parent. Create the crawl/evidence folder and final-data folder as direct children of that root, not inside `test-runs/` or a task-named wrapper folder. Use a different parent only when the user specifies one.
-- For aqistudy outputs, create two sibling directories under the output parent: a crawl/evidence folder and a final-data folder. Chinese names are `aqistudy数据抓取` and `aqistudy最终数据`; English names are `aqistudy-data` and `aqistudy-final-data`. The first run has no version suffix; the second run uses `V2` or `-v2`, then `V3` or `-v3`.
-- For aqistudy, default final formats are CSV, JSONL, and Stata DTA. Keep `_dta_labels.json` beside DTA files when Stata-safe variable names replace Chinese column names.
-- For aqistudy Chinese crawl folders, include `代码文件/运行方式.md` and `代码文件/一键运行.py`. The visible rerun command should have no parameters: `python 代码文件/一键运行.py`.
+- For ordinary research outputs, create two sibling directories under the output parent: a crawl/evidence folder and a final-data folder. Derive names from the research object or source, for example `空气质量数据抓取/` plus `空气质量最终数据/` for Chinese, or `air-quality-data/` plus `air-quality-final-data/` for English.
+- Version suffixes are run-count based. The first run has no suffix; the second run uses `V2` in Chinese or `-v2` in English; then `V3` or `-v3`.
+- Include a low-tech rerun bundle when generating reusable code. Chinese crawl folders should include `代码文件/运行方式.md` and `代码文件/一键运行.py`; the visible command should have no parameters, such as `python 代码文件/一键运行.py`.
+- Use site-specific folder names and defaults only when a reference file explicitly requires them, such as the dedicated aqistudy air-quality recipe.
 - Do not treat page title, raw body text, or HTML as the final CSV unless the research object is the page itself.
 - Use polite settings by default: robots.txt where applicable, 10 seconds between repeated page requests, and conservative concurrency.
 - Preserve original page evidence even when also creating cleaned text for analysis.
@@ -65,7 +66,7 @@ Python is the implementation language. Keep Scrapling as the default fetch/archi
 Create project outputs in this shape directly under the current workspace/project root unless the user asks otherwise. For Chinese users, localize folder names while keeping the same roles. Avoid task wrapper folders such as `test-runs/<scenario>/` during normal skill use.
 
 ```text
-aqistudy-data/
+research-data/
 ├── config/
 ├── data/
 │   ├── raw/
@@ -74,8 +75,8 @@ aqistudy-data/
 ├── reports/
 ├── logs/
 └── code/
-aqistudy-final-data/
-└── final CSV/JSONL/DTA
+research-final-data/
+└── final CSV/JSONL/DTA/XLSX/Parquet/DuckDB
 ```
 
 For recurring collections, include stable `entity_id`, `observed_at`, `region`, and `category` fields when available.

@@ -29,7 +29,7 @@ def main() -> int:
     parser.add_argument("--install", action="store_true", help="Install Python packages")
     parser.add_argument("--browser-deps", action="store_true", help="Install browser dependencies with scrapling install")
     parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--extras", default="pandas,openpyxl,cryptography", help="Comma-separated additional packages")
+    parser.add_argument("--extras", default="pandas,openpyxl,cryptography,pyarrow,duckdb", help="Comma-separated additional packages")
     args = parser.parse_args()
 
     venv_dir = Path(args.venv)

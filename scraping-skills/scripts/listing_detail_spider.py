@@ -17,7 +17,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from save_raw_response import export_records, fetch_url, parse_formats, save_raw_response
-from single_page_extract import extract_one, parse_field_specs
+from single_page_extract import decode_body, extract_one, parse_field_specs
 
 
 def discover_links(html: str, base_url: str, selector: str, max_links: int) -> list[str]:
@@ -59,6 +59,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Collect detail pages linked from a listing page.")
     parser.add_argument("start_url")
     parser.add_argument("--project-dir", default="research_scrape_output")
+    parser.add_argument("--language", choices=["zh", "en"], default="en")
     parser.add_argument("--link-selector", default="a::attr(href)")
     parser.add_argument("--allow-regex")
     parser.add_argument("--deny-regex")
@@ -72,8 +73,8 @@ def main() -> int:
     args = parser.parse_args()
 
     listing = fetch_url(args.start_url, timeout=args.timeout, mode=args.mode)
-    listing_meta = save_raw_response(listing, args.project_dir)
-    html = listing.body.decode("utf-8", errors="replace")
+    listing_meta = save_raw_response(listing, args.project_dir, language=args.language)
+    html = decode_body(listing.body, listing.headers)
     links = discover_links(html, listing.final_url, args.link_selector, args.max_details)
     links = filter_links(links, args.allow_regex, args.deny_regex)
     fields = parse_field_specs(args.field)
@@ -89,6 +90,7 @@ def main() -> int:
                 mode=args.mode,
                 timeout=args.timeout,
                 headers={"Referer": listing.final_url},
+                language=args.language,
             )
             record["listing_url"] = args.start_url
             record["listing_content_hash"] = listing_meta["content_hash"]
@@ -100,7 +102,7 @@ def main() -> int:
 
     if failures:
         records.extend(failures)
-    outputs = export_records(records, args.project_dir, args.stem, parse_formats(args.formats))
+    outputs = export_records(records, args.project_dir, args.stem, parse_formats(args.formats), language=args.language)
     print(json.dumps({"listing_url": args.start_url, "discovered": len(links), "records": len(records), "failures": len(failures), "outputs": outputs}, ensure_ascii=False, indent=2))
     return 0 if not failures else 2
 

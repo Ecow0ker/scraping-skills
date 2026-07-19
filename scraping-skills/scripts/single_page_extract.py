@@ -147,9 +147,10 @@ def extract_one(
     wait_selector: str | None = None,
     headless: bool = True,
     headers: dict[str, str] | None = None,
+    language: str = "en",
 ) -> dict[str, Any]:
     result = fetch_url(url, timeout=timeout, mode=mode, wait_selector=wait_selector, headless=headless, headers=headers)
-    metadata = save_raw_response(result, project_dir)
+    metadata = save_raw_response(result, project_dir, language=language)
     html = decode_body(result.body, result.headers)
     extracted, errors = extract_fields(html, fields or {})
     if not result.body:
@@ -165,6 +166,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Extract one page for a research dataset.")
     parser.add_argument("url")
     parser.add_argument("--project-dir", default="research_scrape_output")
+    parser.add_argument("--language", choices=["zh", "en"], default="en")
     parser.add_argument("--field", action="append", help="Field mapping in name=css_selector format")
     parser.add_argument("--mode", choices=["auto", "static", "dynamic", "stealth"], default="auto")
     parser.add_argument("--timeout", type=int, default=30)
@@ -183,8 +185,9 @@ def main() -> int:
         timeout=args.timeout,
         wait_selector=args.wait_selector,
         headless=not args.no_headless,
+        language=args.language,
     )
-    outputs = export_records([record], args.project_dir, args.stem, parse_formats(args.formats))
+    outputs = export_records([record], args.project_dir, args.stem, parse_formats(args.formats), language=args.language)
     print(json.dumps({"records": 1, "outputs": outputs, "sample": record}, ensure_ascii=False, indent=2))
     return 0
 

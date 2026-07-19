@@ -14,6 +14,12 @@ env/
 # Local crawl outputs and test artifacts
 test-runs/
 plan.md
+*数据抓取*/
+*最终数据*/
+*-data/
+*-data-v*/
+*-final-data/
+*-final-data-v*/
 百度指数山东数据抓取/
 百度指数山东最终数据/
 aqistudy数据抓取*/

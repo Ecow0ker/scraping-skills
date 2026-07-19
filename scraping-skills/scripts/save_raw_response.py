@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 
-EXTRACTOR_VERSION = "0.1.0"
+EXTRACTOR_VERSION = "0.1.1"
 DEFAULT_USER_AGENT = "Mozilla/5.0 research-collector/0.1"
 SENSITIVE_HEADERS = {"cookie", "set-cookie", "authorization", "proxy-authorization"}
 
@@ -284,7 +284,7 @@ def export_records(
             writer.writerows(normalized)
         output_paths["csv"] = str(path)
 
-    if any(fmt in formats for fmt in {"xlsx", "excel", "dta", "parquet"}):
+    if any(fmt in formats for fmt in {"xlsx", "excel", "dta", "parquet", "duckdb"}):
         try:
             import pandas as pd
         except Exception as exc:
@@ -300,6 +300,20 @@ def export_records(
             path = paths["processed"] / f"{stem}.parquet"
             frame.to_parquet(path, index=False)
             output_paths["parquet"] = str(path)
+        if "duckdb" in formats:
+            try:
+                import duckdb
+            except Exception as exc:
+                output_paths["duckdb_error"] = f"duckdb not available: {exc}"
+            else:
+                path = paths["processed"] / f"{stem}.duckdb"
+                connection = duckdb.connect(str(path))
+                try:
+                    connection.register("records_frame", frame)
+                    connection.execute("CREATE OR REPLACE TABLE records AS SELECT * FROM records_frame")
+                finally:
+                    connection.close()
+                output_paths["duckdb"] = str(path)
         if "dta" in formats:
             path = paths["processed"] / f"{stem}.dta"
             dta_frame, labels = prepare_stata_frame(frame)
@@ -356,6 +370,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Fetch one URL and archive the raw response.")
     parser.add_argument("url")
     parser.add_argument("--project-dir", default="research_scrape_output")
+    parser.add_argument("--language", choices=["zh", "en"], default="en")
     parser.add_argument("--mode", choices=["auto", "static", "dynamic", "stealth"], default="auto")
     parser.add_argument("--timeout", type=int, default=30)
     parser.add_argument("--wait-selector")
@@ -370,8 +385,8 @@ def main() -> int:
         wait_selector=args.wait_selector,
         headless=not args.no_headless,
     )
-    metadata = save_raw_response(result, args.project_dir)
-    export_records([metadata], args.project_dir, "raw_responses", parse_formats(args.formats))
+    metadata = save_raw_response(result, args.project_dir, language=args.language)
+    export_records([metadata], args.project_dir, "raw_responses", parse_formats(args.formats), language=args.language)
     print(json.dumps(metadata, ensure_ascii=False, indent=2))
     return 0
 

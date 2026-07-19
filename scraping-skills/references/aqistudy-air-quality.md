@@ -6,7 +6,7 @@ Also read `references/aqistudy-rules-fragment.md` for the compact routing, folde
 
 ## Recipe Status
 
-Status: `Beta`. The recipe has been tested on city-day AQI data and produces observation-level CSV, JSONL, and Stata DTA files, but aqistudy may change its page script or API wrapper. If extraction fails, archive the raw page and response first, then inspect the page script before changing the output schema.
+This maintained recipe has been tested on city-day AQI data and produces observation-level CSV, JSONL, and Stata DTA files. The site may still change its page script or API wrapper; if extraction fails, archive the raw page and response first, then inspect the page script before changing the output schema.
 
 ## What The Crawl Learned
 

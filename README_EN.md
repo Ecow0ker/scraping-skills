@@ -8,6 +8,12 @@
 
 ---
 
+## Community and Feedback
+
+To share your experience, report issues, or suggest improvements, follow the WeChat official account “经实研读” or join QQ group 610645081.
+
+---
+
 ## Overview
 
 Scraping Skills is a Codex Skill for collecting and structuring web data for research. It helps researchers convert web pages, APIs, downloads, and authenticated pages into usable research datasets instead of saving only page text, titles, or screenshots.
